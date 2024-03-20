@@ -49,6 +49,7 @@ spec:
   ports:
   - port: 8080
     targetPort: 8080
+    name: http
   selector:
     app: java-demo
 ---
@@ -63,5 +64,6 @@ spec:
   ports:
   - port: 8080
     targetPort: 8080
+    name: http
   selector:
     app: java-demo
