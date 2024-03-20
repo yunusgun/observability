@@ -119,11 +119,11 @@ Also, the installation of brew, kubectl, istioctl, sloth tools  should be on you
    ```
    - ArgoCD  Installation 
    ```sh
-    helm upgrade --install argo argo/argo-cd -f CI-CD/ArgoCd-Rollout/argocd-values.yaml -n cicd
+    helm upgrade --install argo argo/argo-cd -f CI-CD/ArgoCd-Rollout/Helm-values/argocd-values.yaml -n cicd
    ```
    - Argo Rollout  Installation 
    ```sh
-    helm upgrade --install argo-rollout  argo/argo-rollouts  -f CI-CD/ArgoCd-Rollout/argo-rollout-values.yaml -n cicd
+    helm upgrade --install argo-rollout  argo/argo-rollouts  -f CI-CD/ArgoCd-Rollout/Helm-values/argo-rollout-values.yaml -n cicd
    ```
    - Istio  Installation 
    ```sh
