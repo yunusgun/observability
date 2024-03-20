@@ -1,0 +1,13 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  labels:
+    release: prometheus
+  name: argo-record
+  namespace: monitoring
+spec:
+  groups:
+  - name: Argo Record Rule
+    rules:
+    - expr: histogram_quantile(0.95, sum by(le) (rate(istio_request_duration_milliseconds_bucket{le="+Inf", app="java-demo"}[5m])))
+      record: argo:applatency:histogram
