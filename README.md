@@ -1,8 +1,7 @@
-Prerequisite
-The following tools need to be install on your machine :
-
-jq
-kubectl
-git
-gcloud ( if you are using GKE)
-Helm
+GCP K8s
+Jenkins
+ArgoCD
+ArgoRollout
+P8s
+Loki
+Tempo

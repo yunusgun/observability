@@ -1,12 +1,7 @@
-# This example shows the same example as getting-started.yml but using Sloth Kubernetes CRD.
-# It will generate the Prometheus rules in a Kubernetes prometheus-operator PrometheusRules CRD.
-#
-# `sloth generate -i ./examples/k8s-getting-started.yml`
-#
 apiVersion: sloth.slok.dev/v1
 kind: PrometheusServiceLevel
 metadata:
-  name: sloth-slo-java-app
+  name: sloth-slo-java-app-latency
   namespace: monitoring
 spec:
   service: "java-demo-app"
@@ -15,23 +10,29 @@ spec:
     repo: "myorg/java-demo-app"
     tier: "2"
   slos:
-    - name: "requests-availability"
-      objective: 99.9
-      description: "Common SLO based on availability for HTTP request responses."
+    - name: "requests-latency"
+      objective: 99
+      description: "Common SLO based on latency for HTTP request responses."
+      labels:
+        category: latency
       sli:
+        plugin:
+          id: "sloth-common/istio/v1/latency"
         events:
-          errorQuery: sum(rate(http_request_duration_seconds_count{job="myservice",code=~"(5..|429)"}[{{.window}}]))
-          totalQuery: sum(rate(http_request_duration_seconds_count{job="myservice"}[{{.window}}]))
+        error_query: |
+          (
+            sum(rate(apiserver_request_duration_seconds_count{verb!="WATCH"}[{{.window}}]))
+            -
+            sum(rate(apiserver_request_duration_seconds_bucket{le="0.4",verb!="WATCH"}[{{.window}}]))
+          )
+        total_query: sum(rate(apiserver_request_duration_seconds_count{verb!="WATCH"}[{{.window}}]))
       alerting:
-        name: JavaAppHighErrorRate
+        name: java-demoLatencyAlert
         labels:
-          category: "availability"
-        annotations:
-          summary: "High error rate on 'java-demo-app' requests responses"
-        pageAlert:
+          category: "latency"
+        page_alert:
           labels:
-            severity: pageteam
-            routing_key: myteam
-        ticketAlert:
+            severity: critical
+        ticket_alert:
           labels:
-            severity: "warning"
+            severity: warning
