@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: demoapp
-          image: java-app-auto-instrumentation:10
+          image: yunusgun06/java-app-auto-instrumentation:10
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080

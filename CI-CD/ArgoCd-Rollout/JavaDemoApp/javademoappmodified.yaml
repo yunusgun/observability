@@ -1,0 +1,71 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: java-demoapp
+  labels:
+    app: java-demo
+spec:
+  selector:
+    matchLabels:
+      app: java-demo
+  replicas: 5
+  template:
+    metadata:
+      labels:
+        app: java-demo
+    spec:
+      containers:
+        - name: demoapp
+          image: yunusgun06/java-app-modified:2
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          env:
+            - name: BEYLA_OPEN_PORT
+              value: "8080"
+            - name: OTEL_EXPORTER_OTLP_ENDPOINT
+              value: "http://tempo.monitoring.svc.cluster.local:4317"
+            - name: OTEL_SERVICE_NAME
+              value: "java-demo-app-auto"
+            # - name: OTEL_RESOURCE_ATTRIBUTES
+            #   value: "java-demo-app"
+            - name: OTEL_METRICS_EXPORTER
+              value: "none"
+            - name: BEYLA_KUBE_METADATA_ENABLE
+              value: "true"
+  strategy:
+    canary:
+      stableService: java-demoapp-stable
+      canaryService: java-demoapp-canary
+      steps:
+      - setWeight: 50
+      - pause: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: java-demoapp-stable
+  labels:
+    app: java-demo
+spec:
+  type: NodePort
+  ports:
+  - port: 8080
+    targetPort: 8080
+  selector:
+    app: java-demo
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: java-demoapp-canary
+  labels:
+    app: java-demo
+spec:
+  type: NodePort
+  ports:
+  - port: 8080
+    targetPort: 8080
+  selector:
+    app: java-demo
