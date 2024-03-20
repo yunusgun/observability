@@ -9,7 +9,7 @@ spec:
   selector:
     matchLabels:
       app: java-demo-auto
-  replicas: 5
+  replicas: 4
   template:
     metadata:
       labels:
@@ -28,8 +28,6 @@ spec:
               value: "http://tempo.monitoring.svc.cluster.local:4317"
             - name: OTEL_SERVICE_NAME
               value: "java-demo-app-auto"
-            # - name: OTEL_RESOURCE_ATTRIBUTES
-            #   value: "java-demo-app"
             - name: OTEL_METRICS_EXPORTER
               value: "none"
             - name: BEYLA_KUBE_METADATA_ENABLE
