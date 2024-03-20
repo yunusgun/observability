@@ -9,7 +9,7 @@ spec:
   selector:
     matchLabels:
       app: java-demo
-  replicas: 5
+  replicas: 4
   template:
     metadata:
       labels:
@@ -22,18 +22,14 @@ spec:
           ports:
             - containerPort: 8080
           env:
-            - name: BEYLA_OPEN_PORT
-              value: "8080"
             - name: OTEL_EXPORTER_OTLP_ENDPOINT
               value: "http://tempo.monitoring.svc.cluster.local:4317"
             - name: OTEL_SERVICE_NAME
-              value: "java-demo-app-auto"
+              value: "java-demo-app"
             # - name: OTEL_RESOURCE_ATTRIBUTES
             #   value: "java-demo-app"
             - name: OTEL_METRICS_EXPORTER
               value: "none"
-            - name: BEYLA_KUBE_METADATA_ENABLE
-              value: "true"
   strategy:
     canary:
       stableService: java-demoapp-stable
