@@ -18,7 +18,7 @@ spec:
         ((
           sum(rate(istio_request_duration_milliseconds_count{app=~"java-demo|java-demo-auto"}[5m]))
           -
-          sum(rate(istio_request_duration_milliseconds_bucket{le="250",app=~"java-demo|java-demo-auto"}[5m]))
+          sum(rate(istio_request_duration_milliseconds_bucket{le="500",app=~"java-demo|java-demo-auto"}[5m]))
         )
         )
         /
@@ -36,7 +36,7 @@ spec:
         ((
           sum(rate(istio_request_duration_milliseconds_count{app=~"java-demo|java-demo-auto"}[30m]))
           -
-          sum(rate(istio_request_duration_milliseconds_bucket{le="250",app=~"java-demo|java-demo-auto"}[30m]))
+          sum(rate(istio_request_duration_milliseconds_bucket{le="500",app=~"java-demo|java-demo-auto"}[30m]))
         )
         )
         /
@@ -54,7 +54,7 @@ spec:
         ((
           sum(rate(istio_request_duration_milliseconds_count{app=~"java-demo|java-demo-auto"}[1h]))
           -
-          sum(rate(istio_request_duration_milliseconds_bucket{le="250",app=~"java-demo|java-demo-auto"}[1h]))
+          sum(rate(istio_request_duration_milliseconds_bucket{le="500",app=~"java-demo|java-demo-auto"}[1h]))
         )
         )
         /
@@ -72,7 +72,7 @@ spec:
         ((
           sum(rate(istio_request_duration_milliseconds_count{app=~"java-demo|java-demo-auto"}[2h]))
           -
-          sum(rate(istio_request_duration_milliseconds_bucket{le="250",app=~"java-demo|java-demo-auto"}[2h]))
+          sum(rate(istio_request_duration_milliseconds_bucket{le="500",app=~"java-demo|java-demo-auto"}[2h]))
         )
         )
         /
@@ -90,7 +90,7 @@ spec:
         ((
           sum(rate(istio_request_duration_milliseconds_count{app=~"java-demo|java-demo-auto"}[6h]))
           -
-          sum(rate(istio_request_duration_milliseconds_bucket{le="250",app=~"java-demo|java-demo-auto"}[6h]))
+          sum(rate(istio_request_duration_milliseconds_bucket{le="500",app=~"java-demo|java-demo-auto"}[6h]))
         )
         )
         /
@@ -108,7 +108,7 @@ spec:
         ((
           sum(rate(istio_request_duration_milliseconds_count{app=~"java-demo|java-demo-auto"}[1d]))
           -
-          sum(rate(istio_request_duration_milliseconds_bucket{le="250",app=~"java-demo|java-demo-auto"}[1d]))
+          sum(rate(istio_request_duration_milliseconds_bucket{le="500",app=~"java-demo|java-demo-auto"}[1d]))
         )
         )
         /
@@ -126,7 +126,7 @@ spec:
         ((
           sum(rate(istio_request_duration_milliseconds_count{app=~"java-demo|java-demo-auto"}[3d]))
           -
-          sum(rate(istio_request_duration_milliseconds_bucket{le="250",app=~"java-demo|java-demo-auto"}[3d]))
+          sum(rate(istio_request_duration_milliseconds_bucket{le="500",app=~"java-demo|java-demo-auto"}[3d]))
         )
         )
         /
