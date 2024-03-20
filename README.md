@@ -100,7 +100,7 @@ Also, the installation of brew, kubectl, istioctl, sloth tools  should be on you
 
     23 directories, 30 files
     ```
-6. Installation
+6. Installation of Services
    - Prometheus Stack Installation 
    ```sh
    helm upgrade --install prometheus prometheus-community/kube-prometheus-stack -f ./observability/Monitoring/Metric/Helm-values/p8s-stack-values.yaml -n monitoring
