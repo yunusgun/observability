@@ -1,0 +1,37 @@
+# This example shows the same example as getting-started.yml but using Sloth Kubernetes CRD.
+# It will generate the Prometheus rules in a Kubernetes prometheus-operator PrometheusRules CRD.
+#
+# `sloth generate -i ./examples/k8s-getting-started.yml`
+#
+apiVersion: sloth.slok.dev/v1
+kind: PrometheusServiceLevel
+metadata:
+  name: sloth-slo-java-app
+  namespace: monitoring
+spec:
+  service: "java-demo-app"
+  labels:
+    owner: "yunusgun"
+    repo: "myorg/java-demo-app"
+    tier: "2"
+  slos:
+    - name: "requests-availability"
+      objective: 99.9
+      description: "Common SLO based on availability for HTTP request responses."
+      sli:
+        events:
+          errorQuery: sum(rate(http_request_duration_seconds_count{job="myservice",code=~"(5..|429)"}[{{.window}}]))
+          totalQuery: sum(rate(http_request_duration_seconds_count{job="myservice"}[{{.window}}]))
+      alerting:
+        name: JavaAppHighErrorRate
+        labels:
+          category: "availability"
+        annotations:
+          summary: "High error rate on 'java-demo-app' requests responses"
+        pageAlert:
+          labels:
+            severity: pageteam
+            routing_key: myteam
+        ticketAlert:
+          labels:
+            severity: "warning"
