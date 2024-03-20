@@ -10,16 +10,16 @@ metadata:
   labels:
     app.kubernetes.io/component: SLO
     app.kubernetes.io/managed-by: sloth
-  name: sloth-slo-java-app
+  name: sloth-slo-java-app-availability
   namespace: monitoring
 spec:
   groups:
   - name: sloth-slo-sli-recordings-java-demo-app-requests-availability
     rules:
     - expr: |
-        (sum(rate(istio_request_duration_milliseconds_count{job="myservice",code=~"(5..|429)"}[5m])))
+        (sum(rate(istio_request_duration_milliseconds_count{app=~"java-demo|java-demo-auto",code=~"(5..|429)"}[5m])))
         /
-        (sum(rate(istio_request_duration_milliseconds_count{job="myservice"}[5m])))
+        (sum(rate(istio_request_duration_milliseconds_count{app=~"java-demo|java-demo-auto"}[5m])))
       labels:
         owner: yunusgun
         repo: myorg/java-demo-app
@@ -30,9 +30,9 @@ spec:
         tier: "2"
       record: slo:sli_error:ratio_rate5m
     - expr: |
-        (sum(rate(istio_request_duration_milliseconds_count{job="myservice",code=~"(5..|429)"}[30m])))
+        (sum(rate(istio_request_duration_milliseconds_count{app=~"java-demo|java-demo-auto",code=~"(5..|429)"}[30m])))
         /
-        (sum(rate(istio_request_duration_milliseconds_count{job="myservice"}[30m])))
+        (sum(rate(istio_request_duration_milliseconds_count{app=~"java-demo|java-demo-auto"}[30m])))
       labels:
         owner: yunusgun
         repo: myorg/java-demo-app
@@ -43,9 +43,9 @@ spec:
         tier: "2"
       record: slo:sli_error:ratio_rate30m
     - expr: |
-        (sum(rate(istio_request_duration_milliseconds_count{job="myservice",code=~"(5..|429)"}[1h])))
+        (sum(rate(istio_request_duration_milliseconds_count{app=~"java-demo|java-demo-auto",code=~"(5..|429)"}[1h])))
         /
-        (sum(rate(istio_request_duration_milliseconds_count{job="myservice"}[1h])))
+        (sum(rate(istio_request_duration_milliseconds_count{app=~"java-demo|java-demo-auto"}[1h])))
       labels:
         owner: yunusgun
         repo: myorg/java-demo-app
@@ -56,9 +56,9 @@ spec:
         tier: "2"
       record: slo:sli_error:ratio_rate1h
     - expr: |
-        (sum(rate(istio_request_duration_milliseconds_count{job="myservice",code=~"(5..|429)"}[2h])))
+        (sum(rate(istio_request_duration_milliseconds_count{app=~"java-demo|java-demo-auto",code=~"(5..|429)"}[2h])))
         /
-        (sum(rate(istio_request_duration_milliseconds_count{job="myservice"}[2h])))
+        (sum(rate(istio_request_duration_milliseconds_count{app=~"java-demo|java-demo-auto"}[2h])))
       labels:
         owner: yunusgun
         repo: myorg/java-demo-app
@@ -69,9 +69,9 @@ spec:
         tier: "2"
       record: slo:sli_error:ratio_rate2h
     - expr: |
-        (sum(rate(istio_request_duration_milliseconds_count{job="myservice",code=~"(5..|429)"}[6h])))
+        (sum(rate(istio_request_duration_milliseconds_count{app=~"java-demo|java-demo-auto",code=~"(5..|429)"}[6h])))
         /
-        (sum(rate(istio_request_duration_milliseconds_count{job="myservice"}[6h])))
+        (sum(rate(istio_request_duration_milliseconds_count{app=~"java-demo|java-demo-auto"}[6h])))
       labels:
         owner: yunusgun
         repo: myorg/java-demo-app
@@ -82,9 +82,9 @@ spec:
         tier: "2"
       record: slo:sli_error:ratio_rate6h
     - expr: |
-        (sum(rate(istio_request_duration_milliseconds_count{job="myservice",code=~"(5..|429)"}[1d])))
+        (sum(rate(istio_request_duration_milliseconds_count{app=~"java-demo|java-demo-auto",code=~"(5..|429)"}[1d])))
         /
-        (sum(rate(istio_request_duration_milliseconds_count{job="myservice"}[1d])))
+        (sum(rate(istio_request_duration_milliseconds_count{app=~"java-demo|java-demo-auto"}[1d])))
       labels:
         owner: yunusgun
         repo: myorg/java-demo-app
@@ -95,9 +95,9 @@ spec:
         tier: "2"
       record: slo:sli_error:ratio_rate1d
     - expr: |
-        (sum(rate(istio_request_duration_milliseconds_count{job="myservice",code=~"(5..|429)"}[3d])))
+        (sum(rate(istio_request_duration_milliseconds_count{app=~"java-demo|java-demo-auto",code=~"(5..|429)"}[3d])))
         /
-        (sum(rate(istio_request_duration_milliseconds_count{job="myservice"}[3d])))
+        (sum(rate(istio_request_duration_milliseconds_count{app=~"java-demo|java-demo-auto"}[3d])))
       labels:
         owner: yunusgun
         repo: myorg/java-demo-app
